@@ -12,3 +12,7 @@ After running `swift build -c release` command, you can find the executable in `
 ## Usage
 
 `xcodeproj-sorter <path-to-xcodeproj-file>`
+
+## License
+
+MIT license.
