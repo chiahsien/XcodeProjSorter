@@ -11,7 +11,7 @@ import XcodeProjSorter
 struct XcodeProjectSorterCLI: ParsableCommand {
     static let configuration = CommandConfiguration(
         commandName: "xcodeproj-sorter",
-        abstract: "Sort given Xcode project file.",
+        abstract: "A command-line tool to sort given Xcode project file.",
         version: "0.1.0"
     )
 

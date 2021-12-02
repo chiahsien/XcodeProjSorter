@@ -1,13 +1,13 @@
 # XcodeProjSorter
 
-A command-line tool to sort Xcode's `.xcodeproj` file. It sorts following sessions:
+A library to sort Xcode's `.xcodeproj` file. It sorts following sessions:
 - `PBXGroup`
 - `PBXResourcesBuildPhase`
 - `PBXSourcesBuildPhase`
 
-## Build
+## Command Line Tool
 
-After running `swift build -c release` command, you can find the executable in `.build/release`. Or, you can download it from [releases](https://github.com/chiahsien/XcodeProjSorter/releases) page.
+You can find the command-line tool project under `CLI` directory and build it by yourself. Or, you can download it from [releases](https://github.com/chiahsien/XcodeProjSorter/releases) page.
 
 ## Usage
 
