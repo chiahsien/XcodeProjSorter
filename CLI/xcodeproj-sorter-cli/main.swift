@@ -1,6 +1,14 @@
-import ArgumentParser
+//
+//  main.swift
+//  xcodeproj-sorter
+//
+//  Created by Nelson on 2021/12/2.
+//
 
-struct XcodeProjectSorter: ParsableCommand {
+import ArgumentParser
+import XcodeProjSorter
+
+struct XcodeProjectSorterCLI: ParsableCommand {
     static let configuration = CommandConfiguration(
         commandName: "xcodeproj-sorter",
         abstract: "Sort given Xcode project file.",
@@ -11,9 +19,9 @@ struct XcodeProjectSorter: ParsableCommand {
     var path: String
 
     func run() throws {
-        let sorter = Sorter()
+        let sorter = XcodeProjSorter()
         try sorter.sort(fileAtPath: path)
     }
 }
 
-XcodeProjectSorter.main()
+XcodeProjectSorterCLI.main()

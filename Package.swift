@@ -6,12 +6,11 @@ import PackageDescription
 let package = Package(
     name: "XcodeProjSorter",
     products: [
-        .executable(name: "xcodeproj-sorter", targets: ["XcodeProjSorter"])
+        .library(name: "XcodeProjSorter", targets: ["XcodeProjSorter"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(name: "XcodeProj", url: "https://github.com/tuist/xcodeproj.git", .upToNextMajor(from: "8.5.0")),
-        .package(url: "https://github.com/apple/swift-argument-parser", .upToNextMajor(from: "1.0.2")),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -19,11 +18,7 @@ let package = Package(
         .target(
             name: "XcodeProjSorter",
             dependencies: [
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
-                .product(name: "XcodeProj", package: "XcodeProj"),
+                "XcodeProj"
             ]),
-        .testTarget(
-            name: "XcodeProjSorterTests",
-            dependencies: ["XcodeProjSorter"]),
     ]
 )

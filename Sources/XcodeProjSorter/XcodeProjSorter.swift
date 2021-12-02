@@ -9,8 +9,9 @@ import Foundation
 import PathKit
 import XcodeProj
 
-final class Sorter {
-    func sort(fileAtPath: String) throws {
+public final class XcodeProjSorter {
+    public init() { }
+    public func sort(fileAtPath: String) throws {
         let path = Path(fileAtPath)
         let project = try XcodeProj(path: path)
         let pbxproj = project.pbxproj
@@ -23,7 +24,7 @@ final class Sorter {
     }
 }
 
-private extension Sorter {
+extension XcodeProjSorter {
     // Project Navigator
     func sortGroup(pbxproj: PBXProj) {
         for group in pbxproj.groups {
