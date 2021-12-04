@@ -16,7 +16,8 @@ public final class XcodeProjSorter {
         let project = try XcodeProj(path: path)
         let pbxproj = project.pbxproj
 
-        sortGroup(pbxproj: pbxproj)
+        sortGroups(pbxproj: pbxproj)
+        sortProjects(pbxproj: pbxproj)
         sortSourcesBuildPhase(pbxproj: pbxproj)
         sortResourcesBuildPhase(pbxproj: pbxproj)
 
@@ -26,7 +27,7 @@ public final class XcodeProjSorter {
 
 extension XcodeProjSorter {
     // Project Navigator
-    func sortGroup(pbxproj: PBXProj) {
+    func sortGroups(pbxproj: PBXProj) {
         for group in pbxproj.groups {
             group.children.sort { lhs, rhs in
                 if lhs is PBXGroup && !(rhs is PBXGroup) {
@@ -38,6 +39,29 @@ extension XcodeProjSorter {
                     let rhsName = rhs.name ?? rhs.path ?? ""
                     return numericSort(lhs: lhsName, rhs: rhsName)
                 }
+            }
+        }
+
+        for group in pbxproj.variantGroups {
+            group.children.sort { lhs, rhs in
+                let lhsName = lhs.name ?? lhs.path ?? ""
+                let rhsName = rhs.name ?? rhs.path ?? ""
+                return numericSort(lhs: lhsName, rhs: rhsName)
+            }
+        }
+    }
+
+    func sortProjects(pbxproj: PBXProj) {
+        for project in pbxproj.projects {
+            // Targets
+            project.targets.sort { lhs, rhs in
+                return numericSort(lhs: lhs.name, rhs: rhs.name)
+            }
+            // Swift Packages
+            project.packages.sort { lhs, rhs in
+                let lhsName = lhs.name ?? ""
+                let rhsName = rhs.name ?? ""
+                return numericSort(lhs: lhsName, rhs: rhsName)
             }
         }
     }
