@@ -1,9 +1,11 @@
 # XcodeProjSorter
 
-A library to sort Xcode's `.xcodeproj` file. It sorts following sessions:
-- `PBXGroup`
+A library with command line interface to sort Xcode's `.xcodeproj` file. It sorts following sessions:
+- `PBXGroup` and `PBXVariantGroup`
 - `PBXResourcesBuildPhase`
 - `PBXSourcesBuildPhase`
+- Targets
+- Remote Swift packages
 
 ## Command Line Tool
 
@@ -11,7 +13,9 @@ You can find the command-line tool project under `CLI` directory and build it by
 
 ## Usage
 
-`xcodeproj-sorter <path-to-xcodeproj-file>`
+`xcodeproj-sorter [--case-insensitive] [--numeric] <path-to-xcodeproj-file>`
+
+Use `xcodeproj-sorter -h` for more information.
 
 You can use it to sort Xcode project file before committing it to git version control. Sorting project file can reduce merging conflict possibility.
 
@@ -35,7 +39,7 @@ modifiedProjectFiles=( $(git diff --name-only --cached | grep "project.pbxproj")
 
 for filePath in ${modifiedProjectFiles[@]}; do
   fullFilePath="$GIT_ROOT/$filePath"
-  $sorter $fullFilePath
+  $sorter -n $fullFilePath
   git add $fullFilePath
 done
 
