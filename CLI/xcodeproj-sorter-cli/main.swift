@@ -12,15 +12,29 @@ struct XcodeProjectSorterCLI: ParsableCommand {
     static let configuration = CommandConfiguration(
         commandName: "xcodeproj-sorter",
         abstract: "A command-line tool to sort given Xcode project file.",
-        version: "0.1.0"
+        version: "0.2.0"
     )
+
+    @Flag(name: .shortAndLong, help: "Sort file name with case insensitive.")
+    var caseInsensitive = false
+
+    @Flag(name: .shortAndLong, help: "Sort file name using numeric value, that is, 2.txt < 7.txt < 25.txt.")
+    var numeric = false
 
     @Argument(help: "The absolute path for .xcodeproj file.")
     var path: String
 
     func run() throws {
-        let sorter = XcodeProjSorter()
-        try sorter.sort(fileAtPath: path)
+        var options: String.CompareOptions = []
+        if caseInsensitive {
+            options.insert(.caseInsensitive)
+        }
+        if numeric {
+            options.insert(.numeric)
+        }
+
+        let sorter = try XcodeProjSorter(fileAtPath: path, options: options)
+        try sorter.sort()
     }
 }
 
